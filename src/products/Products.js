@@ -142,7 +142,9 @@ export const Products = () => {
         </label>
       </div>
 
-      <div className="product-container">
+      <p style={{marginLeft: '1rem'}}>Total no. of products : {filteredData.length}</p>
+      
+      <div className="product-container">        
         {filteredData.map(
           ({
             id,
@@ -159,7 +161,7 @@ export const Products = () => {
               <div className="product-details">
                 <h2>{name}</h2>
                 <p>{productName}</p>
-                <p>{price}</p>
+                <p>Rs. {price}</p>
                 <p>{inStock ? "in stock!" : "out of stock"}</p>
                 <p>{fastDelivery ? "delivery is fast" : "minimum 3 days"}</p>
                 <button onClick={() => addToCartHandler(filteredData, id)}>
