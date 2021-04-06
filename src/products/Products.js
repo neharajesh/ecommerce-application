@@ -83,6 +83,14 @@ export const Products = () => {
     setItemsInWishlist((items) => [...items, currentItem]);
   };
 
+  const addRatingStars = (rating) => {
+    let starString = "";
+    for(let i=0; i<rating; i++) {
+      starString += "⭐";
+    }
+    return starString;
+  }
+
   return (
     <>
       <h1>Products</h1>
@@ -151,25 +159,30 @@ export const Products = () => {
             name,
             image,
             productName,
+            material,
+            brand,
             price,
+            ratings,
             inStock,
-            fastDelivery,
-            quantity
+            fastDelivery
           }) => (
             <div key={id} className="product-item">
               <img src={image} alt={name} />
               <div className="product-details">
                 <h2>{name}</h2>
                 <p>{productName}</p>
-                <p>Rs. {price}</p>
-                <p>{inStock ? "in stock!" : "out of stock"}</p>
-                <p>{fastDelivery ? "delivery is fast" : "minimum 3 days"}</p>
-                <button onClick={() => addToCartHandler(filteredData, id)}>
+                <p>Material : {material}</p>
+                <p>Brand : {brand}</p>
+                <p>Rs. {price}</p>        
+                <p>{addRatingStars(ratings)}</p>        
+                <p>{inStock && <span className="card-badge">In Stock</span>}</p>
+                <p>{fastDelivery && <span className="card-badge delivery-badge">fast delivery</span>}</p>
+                <button className="button-add button-primary" onClick={() => addToCartHandler(filteredData, id)}>
                   Add to Cart
                 </button>
-                <button onClick={() => addToWishlistHandler(filteredData, id)}>
+                <button className="button-add button-secondary" onClick={() => addToWishlistHandler(filteredData, id)}>
                   Add to Wishlist
-                </button>
+                </button>              
               </div>              
             </div>
           )

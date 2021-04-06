@@ -9,8 +9,13 @@ import { Routes, Route } from 'react-router-dom';
 export default function App() {
   return (
     <>
-      <nav>
-        <NavLink
+    <div className="navigation">
+      <div id="nav-simple">
+        <div>
+            <h1 id="brand-name">Neha's Mart</h1>
+        </div>
+          <div className="nav-links">
+          <NavLink
           to="/"
           className="navButtons"
           activeClassName="navButtons-active"
@@ -38,7 +43,10 @@ export default function App() {
         >
           Cart
         </NavLink>
-      </nav>
+          </div>
+      </div>
+    </div>
+      
       <Routes>
         <Route path="/">
           {" "}
