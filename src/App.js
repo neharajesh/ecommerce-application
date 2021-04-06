@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles.css';
+import { Home } from "./Home";
+import { Cart } from './cart/Cart';
+import { Products } from "./products/Products";
+import { Wishlist } from "./wishlist/Wishlist";
+import { NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <nav>
+        <NavLink
+          to="/"
+          className="navButtons"
+          activeClassName="navButtons-active"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Home
+        </NavLink>
+        <NavLink
+          className="navButtons"
+          activeClassName="navButtons-active"
+          to="/products"
+        >
+          Products
+        </NavLink>
+        <NavLink
+          className="navButtons"
+          activeClassName="navButtons-active"
+          to="/wishlist"
+        >
+          Wishlist
+        </NavLink>
+        <NavLink
+          className="navButtons"
+          activeClassName="navButtons-active"
+          to="/cart"
+        >
+          Cart
+        </NavLink>
+      </nav>
+      <Routes>
+        <Route path="/">
+          {" "}
+          <Home />{" "}
+        </Route>
+        <Route path="/products">
+          {" "}
+          <Products />{" "}
+        </Route>
+        <Route path="/wishlist">
+          <Wishlist />
+        </Route>
+        <Route path="/cart">
+          <Cart />
+        </Route>
+      </Routes>
+    </>
   );
 }
-
-export default App;
