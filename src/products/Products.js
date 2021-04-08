@@ -3,6 +3,7 @@ import "../styles.css";
 import { useCart } from "../cart/cart-context";
 import { useReducer } from "react";
 import { useWishlist } from "../wishlist/wishlist-context";
+import { Link } from "react-router-dom";
 
 export const Products = () => {
   const { setCartCount, setCartPrice, setItemsInCart } = useCart();
@@ -91,66 +92,66 @@ export const Products = () => {
     return starString;
   }
 
-  return (
-    <>
-      <h1>Products</h1>
+  return (<>
+    <p style={{marginLeft: '1rem'}}>Total no. of products : {filteredData.length}</p>
+    <div className="product-page-container">
       <div className="container-sort">
-        <strong> Sort By: </strong>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            checked={inStockOnly}
-            onChange={() => dispatch({ type: "TOGGLE_STOCK" })}
-          />
-          Show Out of Stock
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            checked={fastDeliveryOnly}
-            onChange={() => dispatch({ type: "TOGGLE_DELIVERY" })}
-          />
-          Show Fast Delivery Only
-        </label>
-      </div>
+        <fieldset>
+          <legend>Sort By :</legend>
+          <label>
+            <input
+              type="checkbox"
+              checked={inStockOnly}
+              onChange={() => dispatch({ type: "TOGGLE_STOCK" })}
+            />
+            Show Out of Stock
+          </label>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              checked={fastDeliveryOnly}
+              onChange={() => dispatch({ type: "TOGGLE_DELIVERY" })}
+            />
+            Show Fast Delivery Only
+          </label>
+        </fieldset>
 
-      <br />
+        <fieldset>
+          <legend>Price :</legend>
+          <label>
+            <input
+              type="radio"
+              onChange={() =>
+                dispatch({
+                  type: "SORT_BY_PRICE",
+                  payload: "PRICE_LOW_TO_HIGH"
+                })
+              }
+              checked={sortByPrice && sortByPrice === "PRICE_LOW_TO_HIGH"}
+            />
+            Low to High
+          </label>
+          <br />
+          <label>
+            <input
+              type="radio"
+              onChange={() =>
+                dispatch({
+                  type: "SORT_BY_PRICE",
+                  payload: "PRICE_HIGH_TO_LOW"
+                })
+              }
+              checked={sortByPrice && sortByPrice === "PRICE_HIGH_TO_LOW"}
+            />
+            High To Low
+          </label>
+        </fieldset>
 
-      <div class="container-sort">
-        <strong>Price :</strong>
-        <br />
-        <label>
-          <input
-            type="radio"
-            onChange={() =>
-              dispatch({
-                type: "SORT_BY_PRICE",
-                payload: "PRICE_LOW_TO_HIGH"
-              })
-            }
-            checked={sortByPrice && sortByPrice === "PRICE_LOW_TO_HIGH"}
-          />
-          Low to High
-        </label>
-        <br />
-        <label>
-          <input
-            type="radio"
-            onChange={() =>
-              dispatch({
-                type: "SORT_BY_PRICE",
-                payload: "PRICE_HIGH_TO_LOW"
-              })
-            }
-            checked={sortByPrice && sortByPrice === "PRICE_HIGH_TO_LOW"}
-          />
-          High To Low
-        </label>
-      </div>
-
-      <p style={{marginLeft: '1rem'}}>Total no. of products : {filteredData.length}</p>
+        <fieldset>
+          <legend>Stars :</legend>
+        </fieldset>     
+      </div>      
       
       <div className="product-container">        
         {filteredData.map(
@@ -158,9 +159,6 @@ export const Products = () => {
             id,
             name,
             image,
-            productName,
-            material,
-            brand,
             price,
             ratings,
             inStock,
@@ -169,25 +167,26 @@ export const Products = () => {
             <div key={id} className="product-item">
               <img src={image} alt={name} />
               <div className="product-details">
-                <h2>{name}</h2>
-                <p>{productName}</p>
-                <p>Material : {material}</p>
-                <p>Brand : {brand}</p>
-                <p>Rs. {price}</p>        
-                <p>{addRatingStars(ratings)}</p>        
-                <p>{inStock && <span className="card-badge">In Stock</span>}</p>
-                <p>{fastDelivery && <span className="card-badge delivery-badge">fast delivery</span>}</p>
-                <button className="button-add button-primary" onClick={() => addToCartHandler(filteredData, id)}>
-                  Add to Cart
-                </button>
-                <button className="button-add button-secondary" onClick={() => addToWishlistHandler(filteredData, id)}>
-                  Add to Wishlist
-                </button>              
+                <p id="product-details-name">{name}</p>
+                <p id="product-details-price">Rs. {price}</p>        
+                <p id="product-details-rating">{addRatingStars(ratings)}</p>        
+                {inStock && <span className="card-badge">In Stock</span>}
+                {fastDelivery && <span className="card-badge delivery-badge">fast delivery</span>}
+                <div id="product-details-button-container">
+                  <button className="button-add button-primary" onClick={() => addToCartHandler(filteredData, id)}>
+                    Add to Cart
+                  </button>
+                  <button id="button-wishlist" className="button-add button-secondary" onClick={() => addToWishlistHandler(filteredData, id)}>
+                    Add to Wishlist
+                  </button>  
+                </div>
+                <br/>
+                <Link to={`/products/${id}`}>View Details</Link>          
               </div>              
             </div>
           )
         )}
       </div>
-    </>
-  );
+    </div>
+    </>);
 };

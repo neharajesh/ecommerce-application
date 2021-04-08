@@ -5,6 +5,8 @@ import { Products } from "./products/Products";
 import { Wishlist } from "./wishlist/Wishlist";
 import { NavLink } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
+import { ProductDetails } from './products/ProductDetails';
+import { BrokenLinkPage } from './BrokenLinkPage';
 
 export default function App() {
   return (
@@ -48,20 +50,12 @@ export default function App() {
     </div>
       
       <Routes>
-        <Route path="/">
-          {" "}
-          <Home />{" "}
-        </Route>
-        <Route path="/products">
-          {" "}
-          <Products />{" "}
-        </Route>
-        <Route path="/wishlist">
-          <Wishlist />
-        </Route>
-        <Route path="/cart">
-          <Cart />
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:productId" element={<ProductDetails />}/>
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="*" element={<BrokenLinkPage />}/>
       </Routes>
     </>
   );
