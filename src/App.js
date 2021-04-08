@@ -31,19 +31,21 @@ export default function App() {
         >
           Products
         </NavLink>
-        <NavLink
+        <NavLink id="avatar-notification-container"
           className="navButtons"
           activeClassName="navButtons-active"
           to="/wishlist"
         >
-          Wishlist
+          {/* <span id="avatar-notification-badge">1</span> */}
+          <img id="nav-button-img" src="../images/wishlist.svg" alt="Wishlist"/>
         </NavLink>
-        <NavLink
+        <NavLink id="avatar-notification-container"
           className="navButtons"
           activeClassName="navButtons-active"
           to="/cart"
         >
-          Cart
+          {/* <span id="avatar-notification-badge">1</span> */}
+          <img id="nav-button-img" src="../images/shopping-cart.svg" alt="Cart"/>
         </NavLink>
           </div>
       </div>

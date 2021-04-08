@@ -1,8 +1,8 @@
 @import url("https://purplecss.netlify.app/styles.css");
 
 body {
-    width: 100vw;
-    height: 100vh;
+    width: 90vw;
+    height: 75vh;
     padding: 5rem;
     overflow: scroll;
     padding-left: 0;
@@ -51,6 +51,11 @@ body {
     font-size: 1.5em;
 }
 
+#nav-button-img {
+    height: 1rem;
+    width: 1rem;
+}
+
 /* PRODUCTS */
 
 .product-page-container {
@@ -89,6 +94,9 @@ body {
 .product-details {
     margin: 0.3rem 0.8rem;
     width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .product-details p {
@@ -102,11 +110,7 @@ body {
 #product-details-price {
     font-weight: bold;
     font-size: 1.2em;
-    margin-bottom: 0.5rem;
-}
-
-#product-details-rating {
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
 }
 
 .product-item > img {
@@ -137,7 +141,7 @@ body {
 }
 
 #product-details-button-container {
-    margin-top: 1rem;
+    margin: 1rem 0rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -195,4 +199,101 @@ body {
     font-weight: bold;
     font-size: 1.2em;
     margin-bottom: 0.5rem;
+}
+
+/* CART */
+.cart-page-container {
+    padding: 1rem;
+    margin: 1rem;
+    width: 95vw;
+    display: grid;
+    grid-template-areas: "cart sidebar";
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 2rem;
+}
+
+.cart-container {
+    grid-area: cart;
+}
+
+.cart-item {
+    max-width: 60rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cart-details-container {
+    display: flex;    
+}
+
+.cart-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.cart-button-container p {
+    margin: 0;
+}
+
+.cart-button-container button {
+    width: 8rem;
+    cursor: pointer;
+}
+
+.cart-button-container button:hover {
+    border: 2px solid black;
+}
+
+.cart-item-details {
+    margin-left: 2rem;
+    width: 20rem;
+}
+
+.cart-item-details p{
+    margin: 0;
+    padding-top: 0.8rem;
+}
+
+#cart-item-name {
+    font-size: 1.5em;
+    margin-bottom: 0.5rem;
+}
+
+#cart-item-price {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#cart-item-image {
+    height: 150px;
+    width: 150px;
+}
+
+.cart-sidebar {
+    grid-area: sidebar;
+    margin-top: 1rem;
+}
+
+.cart-sidebar {
+    font-size: 1.4em;
+}
+
+#cart-sidebar-highlight {
+    font-weight: bolder;
+}
+
+#checkout-button {
+    width: 8em;
+    height: auto;
+    font-size: 0.8em;
+}
+
+#checkout-button:hover {
+    border: 2px solid black;
+    cursor: pointer;
 }
