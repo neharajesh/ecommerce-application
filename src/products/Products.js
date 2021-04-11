@@ -13,7 +13,8 @@ export const Products = () => {
   const initialData = {
     inStockOnly: true,
     fastDeliveryOnly: false,
-    sortByPrice: null
+    sortByPrice: null,
+    sortByRating: null
   };
 
   const reducerFunction = (state, action) => {
@@ -34,12 +35,19 @@ export const Products = () => {
           sortByPrice: action.payload
           //this action.payload thing takes value from the radio button.
         });
+      case "SORT_BY_RATING":
+        return (state = {
+          ...state,
+          sortByRating: action.payload
+        });
+      case "INITIAL_DATA" :
+        return initialData;
       default:
         return state;
     }
   };
 
-  const [{ inStockOnly, fastDeliveryOnly, sortByPrice }, dispatch] = useReducer(
+  const [{ inStockOnly, fastDeliveryOnly, sortByPrice, sortByRating }, dispatch] = useReducer(
     reducerFunction,
     initialData
   );
@@ -54,6 +62,15 @@ export const Products = () => {
     return productList;
   };
 
+  const getRatingSortedData = (productList, sortByRating) => {
+    if(sortByRating === null) {
+      return productList;
+    }
+    let ratingNumber = sortByRating;
+    const sortedProductList = productList.filter(item => item.ratings === ratingNumber);
+    return sortedProductList;
+  }
+
   const getFilteredData = (productList, fastDeliveryOnly, inStockOnly) => {
     const sortedProductList = productList
       .filter((item) => (fastDeliveryOnly ? item.fastDelivery : true))
@@ -62,8 +79,9 @@ export const Products = () => {
   };
 
   const priceSortedData = getPriceSortedData(data, sortByPrice);
+  const ratingSortedData = getRatingSortedData(priceSortedData, sortByRating);
   const filteredData = getFilteredData(
-    priceSortedData,
+    ratingSortedData,
     fastDeliveryOnly,
     inStockOnly
   );
@@ -149,8 +167,20 @@ export const Products = () => {
         </fieldset>
 
         <fieldset>
-          <legend>Stars :</legend>
-        </fieldset>     
+          <legend>Rating :</legend>
+          <label><input type="radio" onChange={() => dispatch({ type: "SORT_BY_RATING", payload: 1})} 
+                  checked={sortByRating && sortByRating === 1} />⭐</label> <br />
+          <label><input type="radio" onChange={() => dispatch({ type: "SORT_BY_RATING", payload: 2})} 
+                  checked={sortByRating && sortByRating === 2} />⭐⭐</label> <br />
+          <label><input type="radio" onChange={() => dispatch({ type: "SORT_BY_RATING", payload: 3})} 
+                  checked={sortByRating && sortByRating === 3} />⭐⭐⭐</label> <br />
+          <label><input type="radio" onChange={() => dispatch({ type: "SORT_BY_RATING", payload: 4})} 
+                  checked={sortByRating && sortByRating === 4} />⭐⭐⭐⭐</label> <br />
+          <label><input type="radio" onChange={() => dispatch({ type: "SORT_BY_RATING", payload: 5})} 
+                  checked={sortByRating && sortByRating === 5} />⭐⭐⭐⭐⭐</label> <br />
+        </fieldset>    
+
+        <button id="filter-reset-button" className="button-primary" onClick={() => dispatch({type: "INITIAL_DATA"})}>Reset Filters</button> 
       </div>      
       
       <div className="product-container">        

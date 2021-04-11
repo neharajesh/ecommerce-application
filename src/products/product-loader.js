@@ -13,9 +13,9 @@ export const data = [...Array(50)].map((item) => ({
   fastDelivery: faker.datatype.boolean(),
   ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
   offer: faker.random.arrayElement([
-    "Save 50",
+    "Save Rs. 50",
     "70% bonanza",
-    "Republic Day Sale"
+    "Birthday Sale!"
   ]),
   idealFor: faker.random.arrayElement([
     "Men",
