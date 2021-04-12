@@ -4,6 +4,7 @@ import { useCart } from "../cart/cart-context";
 import { useReducer } from "react";
 import { useWishlist } from "../wishlist/wishlist-context";
 import { Link } from "react-router-dom";
+import { showNotification } from "../utilities/toast";
 
 export const Products = () => {
   const { setCartCount, setCartPrice, setItemsInCart } = useCart();
@@ -87,6 +88,7 @@ export const Products = () => {
   );
 
   const addToCartHandler = (existingProductList, productId) => {
+    showNotification("Added to Cart");
     let currentProduct = existingProductList.find(
       (item) => item.id === productId
     );
@@ -98,6 +100,7 @@ export const Products = () => {
   };
 
   const addToWishlistHandler = (productList, productId) => {
+    showNotification("Added to Wishlist")
     const currentItem = productList.find((item) => item.id === productId);
     setItemsInWishlist((items) => [...items, currentItem]);
   };
@@ -108,6 +111,10 @@ export const Products = () => {
       starString += "⭐";
     }
     return starString;
+  }
+
+  const toastHandler = (message) => {
+    console.log(message);
   }
 
   return (<>
@@ -216,6 +223,7 @@ export const Products = () => {
             </div>
           )
         )}
+        <div id="notification-container"></div>
       </div>
     </div>
     </>);

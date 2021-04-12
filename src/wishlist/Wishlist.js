@@ -1,9 +1,11 @@
 import { useWishlist } from "./wishlist-context";
+import { showNotification } from "../utilities/toast";
 
 export const Wishlist = () => {
   const { itemsInWishlist, setItemsInWishlist } = useWishlist();
 
   const removeFromWishlist = (currentList, itemId) => {
+    showNotification("Removed from Wishlist");
     const currentItem = currentList.find((item) => item.id === itemId);
     const updatedList = itemsInWishlist.filter(
       (item) => item.id !== currentItem.id
@@ -34,6 +36,7 @@ export const Wishlist = () => {
           </div>
         ))}
         {itemsInWishlist.length === 0 && "wishlist is empty"}
+        <div id="notification-container"></div>
       </div>
       
     </>

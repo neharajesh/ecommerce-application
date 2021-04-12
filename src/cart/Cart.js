@@ -1,4 +1,5 @@
 import { useCart } from "./cart-context";
+import { showNotification } from "../utilities/toast";
 
 export const Cart = () => {
   const {
@@ -22,9 +23,11 @@ export const Cart = () => {
     setCartCount((count) => count + 1);
     setCartPrice((price) => price + currentItemPrice);
     setItemsInCart(cartItemsList);
+    showNotification("Added to Cart");
   };
 
   const removeFromCart = (cartItemsList, productId) => {
+    showNotification("Removed from Cart");
     const currentItem = cartItemsList.find((item) => item.id === productId);
     cartItemsList = cartItemsList.map((item) => {
       if (item.id === productId) {
@@ -77,6 +80,7 @@ export const Cart = () => {
         <p>Total Items In Cart : <span id="cart-sidebar-highlight">{cartCount}</span></p>
         <p>Total Cart Price = <span id="cart-sidebar-highlight">Rs. {cartPrice}</span></p>
         <button id="checkout-button" className="button-primary">Checkout</button>
+        <div id="notification-container" style={{fontSize: "0.7em"}}></div>
       </div>
      
     </div>

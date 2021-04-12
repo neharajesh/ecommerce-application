@@ -6,7 +6,7 @@ import { Wishlist } from "./wishlist/Wishlist";
 import { NavLink } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import { ProductDetails } from './products/ProductDetails';
-import { BrokenLinkPage } from './BrokenLinkPage';
+import { BrokenLinkPage } from './utilities/BrokenLinkPage';
 
 export default function App() {
   return (
