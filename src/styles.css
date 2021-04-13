@@ -1,6 +1,8 @@
 @import url("https://purplecss.netlify.app/styles.css");
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap');
 
 body {
+    font-family: 'Rubik', sans-serif;
     width: 90vw;
     height: 75vh;
     padding: 5rem;
@@ -326,4 +328,39 @@ img {
 .home-page-container {
     width: 95vw;
     margin: 1rem;
+}
+
+/* PRODUCT DETAILS */
+.product-details-page-container {
+    width: 95vw;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+}
+
+.product-details-container {
+    margin-top: 3rem;
+    width: 70rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.product-details-container > img {
+    height: 400px;
+    width: 400px;
+}
+
+#product-details-price {
+    font-size: 1.5em;
+    font-weight: bold;
+    float: right;
+}
+
+.product-details-button-container {
+    margin-top: 2rem;
+}
+
+.product-details-button-container button {
+    margin-bottom: 1rem;
+    width: 8rem;
 }

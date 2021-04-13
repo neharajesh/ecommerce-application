@@ -112,11 +112,7 @@ export const Products = () => {
     }
     return starString;
   }
-
-  const toastHandler = (message) => {
-    console.log(message);
-  }
-
+  
   return (<>
     <p style={{marginLeft: '1rem'}}>Total no. of products : {filteredData.length}</p>
     <div className="product-page-container">
