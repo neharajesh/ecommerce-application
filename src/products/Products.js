@@ -5,9 +5,11 @@ import { useReducer } from "react";
 import { useWishlist } from "../wishlist/wishlist-context";
 import { Link } from "react-router-dom";
 import { showNotification } from "../utilities/toast";
+// import { addToCartHandler, addToWishlistHandler, addRatingStars } from "../utilities/cart-wishlist-utility";
+// import addToCart from "../utilities/cart-utility";
 
 export const Products = () => {
-  const { setCartCount, setCartPrice, setItemsInCart } = useCart();
+  const { setCartCount, setCartPrice, itemsInCart, setItemsInCart } = useCart();
 
   const { setItemsInWishlist } = useWishlist();
 
@@ -87,16 +89,40 @@ export const Products = () => {
     inStockOnly
   );
 
-  const addToCartHandler = (existingProductList, productId) => {
+  const addToCartHandler = (existingProductList, itemsInCart, productId) => {
     showNotification("Added to Cart");
-    let currentProduct = existingProductList.find(
-      (item) => item.id === productId
-    );
-    currentProduct = { ...currentProduct, quantity: 1 };
-    const currentProductPrice = parseFloat(currentProduct.price);
-    setCartCount((count) => count + 1);
-    setCartPrice((price) => price + currentProductPrice);
-    setItemsInCart((items) => [...items, currentProduct]);
+
+    let currentProduct = itemsInCart.filter(item => item.id === productId);
+
+    if(currentProduct.length === 0) {
+      const itemToAdd = existingProductList.filter(item => item.id === productId);
+      setItemsInCart((items) => [...items, itemToAdd]);
+    } else {
+      itemsInCart = itemsInCart.map(item => {
+        if(item.id === productId) {
+          item.quantity = item.quantity + 1;
+        }
+        return item;
+      })
+
+    }
+
+    // let currentProduct = existingProductList.find(
+    //   (item) => item.id === productId
+    // );
+    // console.log(currentProduct)
+    // if(itemsInCart.includes(currentProduct)) {
+    //   console.log("add to cart clicked once more")
+    //   currentProduct = {...currentProduct, quantity: currentProduct.quantity + 1}
+    //   console.log(currentProduct.quantity)
+    // } else {
+    //   currentProduct = {...currentProduct, quantity: 1};
+    // }  
+    currentProduct = existingProductList.find(item => item.id === productId)    
+     const currentProductPrice = parseFloat(currentProduct.price);
+     setCartCount((count) => count + 1);
+     setCartPrice((price) => price + currentProductPrice);
+    //  setItemsInCart((items) => [...items, currentProduct]);
   };
 
   const addToWishlistHandler = (productList, productId) => {
@@ -206,7 +232,7 @@ export const Products = () => {
                 {inStock && <span className="card-badge">In Stock</span>}
                 {fastDelivery && <span className="card-badge delivery-badge">fast delivery</span>}
                 <div id="product-details-button-container">
-                  <button className="button-add button-primary" onClick={() => addToCartHandler(filteredData, id)}>
+                  <button className="button-add button-primary" onClick={() => addToCartHandler(filteredData, itemsInCart, id)}>
                     Add to Cart
                   </button>
                   <button id="button-wishlist" className="button-add button-secondary" onClick={() => addToWishlistHandler(filteredData, id)}>

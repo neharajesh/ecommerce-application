@@ -62,15 +62,17 @@ export const Cart = () => {
                   <p>Offer : {item.offer}</p>
                 </div> 
               </div>
-                           
-              <div className="cart-button-container">
-                <p>Quantity = {item.quantity}</p>
-                <button className="button-primary" onClick={() => addToCart(itemsInCart, item.id)}>Add</button>
-                <button className="button-secondary" onClick={() => removeFromCart(itemsInCart, item.id)}>
-                  Remove
-                </button>
+
+              <div className="cart-price-container">
+                <p id="cart-item-price"> {item.price} </p>
+                <div className="cart-button-container">                
+                  <button className="button-primary" id="cart-button-add" onClick={() => addToCart(itemsInCart, item.id)}>+</button>
+                  <p>{item.quantity}</p>
+                  <button className="button-secondary" id="cart-button-remove" onClick={() => removeFromCart(itemsInCart, item.id)}>
+                    -
+                  </button>
+                </div>
               </div>
-              <p id="cart-item-price"> {item.price} </p>
             </div>
           ))}
           {itemsInCart.length === 0 && "shop to add stuff to cart!"}
