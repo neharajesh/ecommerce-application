@@ -1,17 +1,61 @@
-import { data } from "./product-loader";
+// import { data } from "./product-loader";
+// import { data } from "./products-data";
 import "../styles.css";
 import { useCart } from "../cart/cart-context";
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useWishlist } from "../wishlist/wishlist-context";
 import { Link } from "react-router-dom";
 import { showNotification } from "../utilities/toast";
+import axios from "axios";
 // import { addToCartHandler, addToWishlistHandler, addRatingStars } from "../utilities/cart-wishlist-utility";
 // import addToCart from "../utilities/cart-utility";
 
 export const Products = () => {
+
+  const { data, setData } = useState([{
+    "name": "Spiked Collars",
+    "category": "Pet Accessories",
+    "price": 8000,
+    "rating": 4,
+    "image": "https://images.jdmagicbox.com/quickquotes/images_main/b07l11s5sr-fdit-spiked-dog-collar-adjustable-pu-leather-4-rows-studded-pet-collars-dog-pitbull-bulldog-neck-ring-m-black-144117526-xyo3g.jpg",
+    "petType": "Dog",
+    "description": "Super Spiked collars. Good for social distancing.",
+    "brand": "BowBowCollars",
+    "inStock": false,
+    "fastDelivery": true,
+    "hasDiscount": true,
+    "discountPercent": 1,
+    "deliveryTime": 6
+}
+]);
+
   const { setCartCount, setCartPrice, itemsInCart, setItemsInCart } = useCart();
 
   const { setItemsInWishlist } = useWishlist();
+
+  // const getProductData = async () => {
+  //   await axios.get("https://ecommerce-backend.neharajesh.repl.co/products")
+  //     .then(response => response.data.forEach(item => setData(data => [...data, item])))
+  //     .catch(err => console.log(err.message))
+  //   console.log(data)
+  //   console.log("data fetched")
+  // }
+
+console.log("before useeffect", data)
+  useEffect(() => async () => {
+    let dataArray = [];
+
+    console.log(data)
+
+    await axios.get("https://ecommerce-backend.neharajesh.repl.co/products")
+      .then(response => response.data.forEach(item => dataArray.push(item)))
+      .catch(err => console.log(err.message))
+    console.log(data)
+    setData(data => [...data, dataArray])
+    console.log("data fetched")},
+ []);
+
+  console.log(data)
 
   const initialData = {
     inStockOnly: true,
@@ -55,34 +99,37 @@ export const Products = () => {
     initialData
   );
 
-  const getPriceSortedData = (productList, sortByPrice) => {
+  const getPriceSortedData = (existingProductList, sortByPrice) => {
     if (sortByPrice && sortByPrice === "PRICE_HIGH_TO_LOW") {
-      return productList.sort((a, b) => b["price"] - a["price"]);
+      return existingProductList.sort((a, b) => b["price"] - a["price"]);
     }
     if (sortByPrice && sortByPrice === "PRICE_LOW_TO_HIGH") {
-      return productList.sort((a, b) => a["price"] - b["price"]);
+      return existingProductList.sort((a, b) => a["price"] - b["price"]);
     }
-    return productList;
+    return existingProductList;
   };
 
-  const getRatingSortedData = (productList, sortByRating) => {
+  const getRatingSortedData = (existingProductList, sortByRating) => {
     if(sortByRating === null) {
-      return productList;
+      return existingProductList;
     }
     let ratingNumber = sortByRating;
-    const sortedProductList = productList.filter(item => item.ratings === ratingNumber);
+    const sortedProductList = existingProductList.filter(item => item.ratings === ratingNumber);
     return sortedProductList;
   }
 
-  const getFilteredData = (productList, fastDeliveryOnly, inStockOnly) => {
-    const sortedProductList = productList
+  const getFilteredData = (existingProductList, fastDeliveryOnly, inStockOnly) => {
+    const sortedProductList = existingProductList
       .filter((item) => (fastDeliveryOnly ? item.fastDelivery : true))
       .filter((item) => (inStockOnly ? true : item.inStock));
     return sortedProductList;
   };
 
+  console.log(data)
   const priceSortedData = getPriceSortedData(data, sortByPrice);
+  console.log(priceSortedData)
   const ratingSortedData = getRatingSortedData(priceSortedData, sortByRating);
+  console.log(ratingSortedData)
   const filteredData = getFilteredData(
     ratingSortedData,
     fastDeliveryOnly,
@@ -92,42 +139,30 @@ export const Products = () => {
   const addToCartHandler = (existingProductList, itemsInCart, productId) => {
     showNotification("Added to Cart");
 
-    let currentProduct = itemsInCart.filter(item => item.id === productId);
+    let currentProduct = itemsInCart.filter(item => item._id === productId);
 
     if(currentProduct.length === 0) {
-      const itemToAdd = existingProductList.filter(item => item.id === productId);
+      const itemToAdd = existingProductList.filter(item => item._id === productId);
       setItemsInCart((items) => [...items, itemToAdd]);
     } else {
       itemsInCart = itemsInCart.map(item => {
-        if(item.id === productId) {
+        if(item._id === productId) {
           item.quantity = item.quantity + 1;
         }
         return item;
       })
 
     }
-
-    // let currentProduct = existingProductList.find(
-    //   (item) => item.id === productId
-    // );
-    // console.log(currentProduct)
-    // if(itemsInCart.includes(currentProduct)) {
-    //   console.log("add to cart clicked once more")
-    //   currentProduct = {...currentProduct, quantity: currentProduct.quantity + 1}
-    //   console.log(currentProduct.quantity)
-    // } else {
-    //   currentProduct = {...currentProduct, quantity: 1};
-    // }  
-    currentProduct = existingProductList.find(item => item.id === productId)    
-     const currentProductPrice = parseFloat(currentProduct.price);
-     setCartCount((count) => count + 1);
-     setCartPrice((price) => price + currentProductPrice);
-    //  setItemsInCart((items) => [...items, currentProduct]);
+    currentProduct = existingProductList.find(item => item._id === productId)    
+    const currentProductPrice = parseFloat(currentProduct.price);
+    setCartCount((count) => count + 1);
+    setCartPrice((price) => price + currentProductPrice);
+    setItemsInCart((items) => [...items, currentProduct]);
   };
 
   const addToWishlistHandler = (productList, productId) => {
     showNotification("Added to Wishlist")
-    const currentItem = productList.find((item) => item.id === productId);
+    const currentItem = productList.find((item) => item._id === productId);
     setItemsInWishlist((items) => [...items, currentItem]);
   };
 
@@ -215,32 +250,32 @@ export const Products = () => {
       <div className="product-container">        
         {filteredData.map(
           ({
-            id,
+            _id,
             name,
             image,
             price,
-            ratings,
+            rating,
             inStock,
             fastDelivery
           }) => (
-            <div key={id} className="product-item">
+            <div key={_id} className="product-item">
               <img src={image} alt={name} />
               <div className="product-details">
                 <p id="product-details-name">{name}</p>
                 <p id="product-details-price">Rs. {price}</p>        
-                <p id="product-details-rating">{addRatingStars(ratings)}</p>        
+                <p id="product-details-rating">{addRatingStars(rating)}</p>        
                 {inStock && <span className="card-badge">In Stock</span>}
                 {fastDelivery && <span className="card-badge delivery-badge">fast delivery</span>}
                 <div id="product-details-button-container">
-                  <button className="button-add button-primary" onClick={() => addToCartHandler(filteredData, itemsInCart, id)}>
+                  <button className="button-add button-primary" onClick={() => addToCartHandler(filteredData, itemsInCart, _id)}>
                     Add to Cart
                   </button>
-                  <button id="button-wishlist" className="button-add button-secondary" onClick={() => addToWishlistHandler(filteredData, id)}>
+                  <button id="button-wishlist" className="button-add button-secondary" onClick={() => addToWishlistHandler(filteredData, _id)}>
                     Add to Wishlist
                   </button>  
                 </div>
                 <br/>
-                <Link to={`/products/${id}`}>View Details</Link>          
+                <Link to={`/products/${_id}`}>View Details</Link>          
               </div>              
             </div>
           )

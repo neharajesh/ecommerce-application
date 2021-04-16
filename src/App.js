@@ -17,7 +17,7 @@ export default function App() {
             <h1 id="brand-name">Neha's Mart</h1>
         </div>
           <div className="nav-links">
-            <NavLink exact to="/" className="navButtons" activeClassName="navButtons-active" end> Home </NavLink>
+            <NavLink to="/" className="navButtons" activeClassName="navButtons-active" end> Home </NavLink>
             <NavLink className="navButtons" activeClassName="navButtons-active" to="/products"> Products </NavLink>
             <NavLink id="avatar-notification-container" className="navButtons" activeClassName="navButtons-active" to="/wishlist">
               {/* <span id="avatar-notification-badge">1</span> */}
@@ -37,7 +37,7 @@ export default function App() {
         <Route path="/wishlist"><Wishlist /></Route>
         <Route path="/cart"><Cart /></Route>
         <Route path="*"><BrokenLinkPage /></Route>
-        <Route exact path="/"><Home /></Route>        
+        <Route path="/"><Home /></Route>        
       </Routes>
     </>
   );

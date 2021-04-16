@@ -52,7 +52,7 @@ body {
 }
 
 #nav-simple {
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .nav-links {
@@ -130,10 +130,11 @@ img {
 
 .product-item > img {
     width: 200px;
-    height: 200px;
+    /* height: 200px; */
+    height: 100%;
     margin-right: 1rem;
-    margin-left: 0.5rem;
-    margin-top: 0.3rem;
+    /* margin-left: 0.5rem; */
+    /* margin-top: 0.3rem; */
 }
 
 .button-add {
