@@ -20,11 +20,9 @@ export default function App() {
             <NavLink to="/" className="navButtons" activeClassName="navButtons-active" end> Home </NavLink>
             <NavLink className="navButtons" activeClassName="navButtons-active" to="/products"> Products </NavLink>
             <NavLink id="avatar-notification-container" className="navButtons" activeClassName="navButtons-active" to="/wishlist">
-              {/* <span id="avatar-notification-badge">1</span> */}
               <img id="nav-button-img" src="../images/wishlist.svg" alt="Wishlist"/>
             </NavLink>
             <NavLink id="avatar-notification-container" className="navButtons" activeClassName="navButtons-active" to="/cart">
-              {/* <span id="avatar-notification-badge">1</span> */}
               <img id="nav-button-img" src="../images/shopping-cart.svg" alt="Cart"/>
             </NavLink>
           </div>
