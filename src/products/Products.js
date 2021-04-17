@@ -257,13 +257,13 @@ export const Products = () => {
         <div className="product-container">
           {filteredData.map(
             ({ _id, name, image, price, rating, inStock, fastDelivery }) => (
-              <div key={_id} className="product-item">
+              <div key={_id} className="card product-item">
+                {!inStock && <div id="card-overlay"><p id="card-overlay-text">OUT OF STOCK</p></div>}
                 <img src={image} alt={name} />
                 <div className="product-details">
                   <p id="product-details-name">{name}</p>
                   <p id="product-details-price">Rs. {price}</p>
-                  <p id="product-details-rating">{addRatingStars(rating)}</p>
-                  {inStock && <span className="card-badge">In Stock</span>}
+                  <p id="product-details-rating">{addRatingStars(rating)}</p>                  
                   {fastDelivery && (
                     <span className="card-badge delivery-badge">
                       fast delivery
