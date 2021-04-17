@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { showNotification } from "../utilities/toast";
 import { useProduct } from "./product-context";
 
+import { updateCart } from "../utilities/cart-utilities";
+
 export const Products = () => {
   const { productList } = useProduct();
   const { setCartCount, setCartPrice, itemsInCart, setItemsInCart } = useCart();
@@ -95,26 +97,20 @@ export const Products = () => {
   const addToCartHandler = (existingProductList, itemsInCart, productId) => {
     showNotification("Added to Cart");
 
-    let currentProduct = itemsInCart.filter((item) => item._id === productId);
+    const updatedCartList = updateCart(
+      existingProductList,
+      itemsInCart,
+      productId,
+      "ADD"
+    );
 
-    if (currentProduct.length === 0) {
-      const itemToAdd = existingProductList.filter(
-        (item) => item._id === productId
-      );
-      setItemsInCart((items) => [...items, itemToAdd]);
-    } else {
-      itemsInCart = itemsInCart.map((item) => {
-        if (item._id === productId) {
-          item.quantity = item.quantity + 1;
-        }
-        return item;
-      });
-    }
-    currentProduct = existingProductList.find((item) => item._id === productId);
+    const currentProduct = existingProductList.find(
+      (item) => item._id === productId
+    );
     const currentProductPrice = parseFloat(currentProduct.price);
     setCartCount((count) => count + 1);
     setCartPrice((price) => price + currentProductPrice);
-    setItemsInCart((items) => [...items, currentProduct]);
+    setItemsInCart(updatedCartList);
   };
 
   const addToWishlistHandler = (existingProductList, productId) => {
