@@ -5,12 +5,12 @@ const { createContext, useState, useEffect, useContext } = require("react");
 const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState([]);  
 
   const loadProductList = async () => {
     try {
       const response = await axios.get(
-        "https://ecommerce-backend.neharajesh.repl.co/products"
+        "https://ecommerce-application-backend.neharajesh.repl.co/products"
       );
       setProductList(response.data);
     } catch (err) {

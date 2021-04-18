@@ -11,8 +11,7 @@ import { BrokenLinkPage } from './utilities/BrokenLinkPage';
 export default function App() {
   return (
     <>
-    <div className="navigation">
-      <div id="nav-simple">
+    <div className="navigation" id="nav-simple">
         <div>
             <h1 id="brand-name">Neha's Mart</h1>
         </div>
@@ -25,7 +24,6 @@ export default function App() {
             <NavLink id="avatar-notification-container" className="navButtons" activeClassName="navButtons-active" to="/cart">
               <img id="nav-button-img" src="../images/shopping-cart.svg" alt="Cart"/>
             </NavLink>
-          </div>
       </div>
     </div>
       
