@@ -7,14 +7,14 @@ import { NavLink } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import { ProductDetails } from './products/ProductDetails';
 import { BrokenLinkPage } from './utilities/BrokenLinkPage';
+import { AiOutlineMenu } from "react-icons/ai";
 
 export default function App() {
   return (
     <>
     <div className="navigation" id="nav-simple">
-        <div>
-            <h1 id="brand-name">Neha's Mart</h1>
-        </div>
+          <AiOutlineMenu size={26} className="nav-hamburger" />
+          <h1 id="brand-name">Neha's Mart</h1>
           <div className="nav-links">
             <NavLink to="/" className="navButtons" activeClassName="navButtons-active" end> Home </NavLink>
             <NavLink className="navButtons" activeClassName="navButtons-active" to="/products"> Products </NavLink>

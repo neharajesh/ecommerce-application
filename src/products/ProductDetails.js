@@ -26,11 +26,11 @@ export const ProductDetails = () => {
           <p>Brand : {product.brand}</p>
           <p id="product-details-price">Rs. {product.price}</p>
           <div className="product-details-button-container">
-            <button className="button-primary">Add to Cart</button> <br />
+            <button className="button-primary" id={product.inStock ? "" : "button-disabled"} >Add to Cart</button> <br />
             <button className="button-secondary">Add to Wishlist</button>
           </div>
-          <p>{product.inStock ? "IN STOCK" : "OUT OF STOCK"}</p>
-          <p>{product.fastDelivery ? "FAST DELIVERY" : "DELIVERY IN 3 DAYS"}</p>
+          <p>{product.inStock ? "In Stock" : "In Stock in 5 days"}</p>
+          <p>{product.fastDelivery ? "1 Day Delivery" : "3 Day Delivery"}</p>
         </div>
         <img src={product.image} alt={product.name} />
       </div>

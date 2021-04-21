@@ -287,7 +287,7 @@ export const Products = () => {
                     </button>
                   </div>
                   <br />
-                  <Link to={`/products/${_id}`}>View Details</Link>
+                  <Link id="product-details-button" to={`/products/${_id}`}>View Details</Link>
                 </div>
               </div>
             )
